@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Virtualenv
+venv/
+.env/
+env/
+
+# Model weights and outputs
+**/models/
+*.pth
+*.pt
+*.h5
+*.ckpt
+*.onnx
