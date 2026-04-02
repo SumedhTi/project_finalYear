@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRef } from "react";
 
 export default function App() {
+  const BASE = "https://1b24-103-106-200-58.ngrok-free.app";
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [output, setOutput] = useState(null);
@@ -58,20 +59,20 @@ export default function App() {
       const isVideo = file.type.startsWith("video");
 
       if (tool === "Text Detect") {
-        endpoint = "http://localhost:8000/ocr";
+        endpoint = BASE + "/ocr";
       } else if (tool === "Compress") {
         endpoint = isVideo
-          ? `http://localhost:8000/process-video?mode=Compress&quality=${compression}`
-          : `http://localhost:8000/compress?quality=${compression}`;
+          ? `${BASE}/process-video?mode=Compress&quality=${compression}`
+          : `${BASE}/compress?quality=${compression}`;
       } else if (tool === "Brighten") {
         endpoint = isVideo
-          ? `http://localhost:8000/process-video?mode=LowLight&intensity=${lowlightIntensity}`
-          : `http://localhost:8000/lowlight?intensity=${lowlightIntensity}`;
+          ? `${BASE}/process-video?mode=LowLight&intensity=${lowlightIntensity}`
+          : `${BASE}/lowlight?intensity=${lowlightIntensity}`;
       } else {
         const mode = tool; // Deblur or Denoise
         endpoint = isVideo
-          ? `http://localhost:8000/process-video?mode=${mode}`
-          : `http://localhost:8000/process-image?mode=${mode}`;
+          ? `${BASE}/process-video?mode=${mode}`
+          : `${BASE}/process-image?mode=${mode}`;
       }
 
       const res = await fetch(endpoint, {
@@ -198,7 +199,7 @@ export default function App() {
               className="bg-blue-600 px-4 py-2 rounded hover:bg-blue-500"
             >
               {(tool === "Compress" && selectedTool === "Compress") ||
-               (tool === "Brighten" && selectedTool === "Brighten")
+              (tool === "Brighten" && selectedTool === "Brighten")
                 ? `Run ${tool}`
                 : tool}
             </button>
